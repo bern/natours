@@ -37,8 +37,52 @@ body {
   
   background-size: cover; /* scales image based on width of viewport */
   background-position: top; /* anchors by the top of the image */
+  position: relative;
   
-  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%); /* coordinates starting top left, moving clockwise for corners, format is {xpos ypos} */ 
   /* TRIANGLE CHALLENGE: clip-path: polygon(0 0, 100% 50%, 0% 100%); */
   /* bennettfeely.com/clippy for clip-path maker */
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%); /* coordinates starting top left, moving clockwise for corners, format is {xpos ypos} */
+}
+
+.logo-box {
+  position: absolute; /* calculates position based on parent element with position: relative */
+  top: 40px;
+  left: 40px;
+}
+
+.logo {
+  height: 35px;
+}
+
+.text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+
+  /* transform: translate(x, y) shifts the position of the element */
+  transform: translate(-50%, -50%); /* in this case, 50% refers to the height/width of the text-box element, rather than its parent */
+}
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.heading-primary-main {
+  /*
+    by default, the span element is an inline property
+    we want to change this to display as a block, because
+    blocks inherently have line breaks before and after them 
+  */
+  display: block;
+  font-size: 60px;
+  font-weight: 400;
+  letter-spacing: 35px;
+}
+
+.heading-primary-sub {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 17.4px;
 }
