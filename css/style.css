@@ -65,6 +65,7 @@ body {
   position: absolute;
   top: 40%;
   left: 50%;
+  text-align: center;
 
   /* transform: translate(x, y) shifts the position of the element */
   transform: translate(-50%, -50%); /* in this case, 50% refers to the height/width of the text-box element, rather than its parent */
@@ -75,6 +76,7 @@ body {
   text-transform: uppercase;
 
   backface-visibility: hidden; /* determines if the back part of an element, when transformed, is visible to the user */
+  margin-bottom: 60px;
 }
 
 .heading-primary-main {
@@ -140,4 +142,33 @@ body {
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+.btn:link, /* link pseudoclass for anchor tags */
+.btn:visited { /* visited pseudoclass for anchor tags after they've been visited */
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 40px;
+  border-radius: 100px;
+  transition: all .2s; /* specify which properties to animate, and then duration */
+
+  /* unlike block, inline-block does not add a line break after elements */
+  display: inline-block; /* this means it'll be treated like text, so we can use text-align prop */
+
+  backface-visibility: hidden;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, .2); /* x y blur */
+}
+
+.btn:active { /* active class is on-click */
+  transform: translateY(-1px);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, .2); /* lessen values to make the button look closer */
+}
+
+.btn-white {
+  background-color: #fff;
+  color: #777;
 }
