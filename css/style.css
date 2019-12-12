@@ -54,6 +54,13 @@ body {
   height: 35px;
 }
 
+/* instead of animating the logo directly, we animate the logo-box on hover only if it has a child logo class */
+/*
+  .logo-box:hover .logo {
+    animation: moveInRight 1s ease-out;
+  }
+*/
+
 .text-box {
   position: absolute;
   top: 40%;
@@ -66,6 +73,8 @@ body {
 .heading-primary {
   color: #fff;
   text-transform: uppercase;
+
+  backface-visibility: hidden; /* determines if the back part of an element, when transformed, is visible to the user */
 }
 
 .heading-primary-main {
@@ -78,6 +87,13 @@ body {
   font-size: 60px;
   font-weight: 400;
   letter-spacing: 35px;
+
+  animation-name: moveInLeft;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+
+  /* animation-delay: 3s; wait before animation play */
+  /* animation-iteration-count: 3; times an animation occurs */
 }
 
 .heading-primary-sub {
@@ -85,4 +101,43 @@ body {
   font-size: 20px;
   font-weight: 700;
   letter-spacing: 17.4px;
+
+  animation: moveInRight 1s ease-out; /* name duration timing-function */
+}
+
+/* 
+  two types of animations:
+  - transition property
+  - @keyframes rule
+*/
+@keyframes moveInLeft {
+  0% {
+    opacity: 0; /* for browser perf, best to animate only opacity and transform */
+    transform: translateX(-100px);
+  }
+
+  80% {
+    transform: translateX(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  80% {
+    transform: translateX(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
