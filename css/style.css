@@ -8,20 +8,28 @@ Dark green: #28b485
 */
 
 /* universal reset, gets rid of all browser-default styling weirdness */
-* {
+*,
+*::after,
+*::before {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* borders and paddings are no longer added to total height/width */
+  box-sizing: inherit; /* force inheritance of box-sizing on every element */
+}
+
+html {
+  font-size: 62.5%; /* setting the root font-size, assuming default is 16px so we set to (10(px)/16(px))% */
 }
 
 /* everything related to font should be specified in the body selector instead of universal */
 body {
   font-family: "Lato", sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  /* font-size: 16px; */
   line-height: 1.7; /* 1.7 times bigger than the pre-defined line height */
   color: #777;
-  padding: 30px; /* applies a 30px padding around the body only */
+  padding: 3rem; /* applies a 30px padding around the body only */
+
+  box-sizing: border-box; /* borders and paddings are no longer added to total height/width */
 }
 
 
@@ -44,14 +52,14 @@ body {
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%); /* coordinates starting top left, moving clockwise for corners, format is {xpos ypos} */
 }
 
-.logo-box {
+.header__logo-box {
   position: absolute; /* calculates position based on parent element with position: relative */
-  top: 40px;
-  left: 40px;
+  top: 4rem;
+  left: 4rem;
 }
 
-.logo {
-  height: 35px;
+.header__logo {
+  height: 3.5rem;
 }
 
 /* instead of animating the logo directly, we animate the logo-box on hover only if it has a child logo class */
@@ -61,7 +69,7 @@ body {
   }
 */
 
-.text-box {
+.header__text-box {
   position: absolute;
   top: 40%;
   left: 50%;
@@ -76,19 +84,19 @@ body {
   text-transform: uppercase;
 
   backface-visibility: hidden; /* determines if the back part of an element, when transformed, is visible to the user */
-  margin-bottom: 60px;
+  margin-bottom: 6rem;
 }
 
-.heading-primary-main {
+.heading-primary--main {
   /*
     by default, the span element is an inline property
     we want to change this to display as a block, because
     blocks inherently have line breaks before and after them 
   */
   display: block;
-  font-size: 60px;
+  font-size: 6rem;
   font-weight: 400;
-  letter-spacing: 35px;
+  letter-spacing: 3.5rem;
 
   animation-name: moveInLeft;
   animation-duration: 1s;
@@ -98,11 +106,11 @@ body {
   /* animation-iteration-count: 3; times an animation occurs */
 }
 
-.heading-primary-sub {
+.heading-primary--sub {
   display: block;
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: 700;
-  letter-spacing: 17.4px;
+  letter-spacing: 1.74rem;
 
   animation: moveInRight 1s ease-out; /* name duration timing-function */
 }
@@ -115,11 +123,11 @@ body {
 @keyframes moveInLeft {
   0% {
     opacity: 0; /* for browser perf, best to animate only opacity and transform */
-    transform: translateX(-100px);
+    transform: translateX(-10rem);
   }
 
   80% {
-    transform: translateX(10px);
+    transform: translateX(1rem);
   }
 
   100% {
@@ -131,11 +139,11 @@ body {
 @keyframes moveInRight {
   0% {
     opacity: 0;
-    transform: translateX(100px);
+    transform: translateX(10rem);
   }
 
   80% {
-    transform: translateX(-10px);
+    transform: translateX(-1rem);
   }
 
   100% {
@@ -147,7 +155,7 @@ body {
 @keyframes moveInBottom {
   0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(3rem);
   }
 
   100% {
@@ -160,28 +168,29 @@ body {
 .btn:visited { /* visited pseudoclass for anchor tags after they've been visited */
   text-transform: uppercase;
   text-decoration: none;
-  padding: 15px 40px;
-  border-radius: 100px;
+  padding: 1.5rem 4rem;
+  border-radius: 10rem;
   transition: all .2s; /* specify which properties to animate, and then duration */
   position: relative;
 
   /* unlike block, inline-block does not add a line break after elements */
   display: inline-block; /* this means it'll be treated like text, so we can use text-align prop */
+  font-size: 1.6rem;
 
   backface-visibility: hidden;
 }
 
 .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0px 10px 10px rgba(0, 0, 0, .2); /* x y blur */
+  transform: translateY(-.3rem);
+  box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, .2); /* x y blur */
 }
 
 .btn:active { /* active class is on-click */
-  transform: translateY(-1px);
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, .2); /* lessen values to make the button look closer */
+  transform: translateY(-.1rem);
+  box-shadow: 0rem .5rem .5rem rgba(0, 0, 0, .2); /* lessen values to make the button look closer */
 }
 
-.btn-white {
+.btn--white {
   background-color: #fff;
   color: #777;
 }
@@ -191,7 +200,7 @@ body {
   display: inline-block;
   height: 100%; /* parent is the class that the pseudo-element is based off */
   width: 100%;
-  border-radius: 100px;
+  border-radius: 10rem;
 
   position: absolute;
   top: 0;
@@ -201,7 +210,7 @@ body {
   transition: all .2s;
 }
 
-.btn-white::after {
+.btn--white::after {
   background-color: white;
 }
 
@@ -210,7 +219,7 @@ body {
   opacity: 0;
 }
 
-.btn-animated {
+.btn--animated {
   animation: moveInBottom .5s ease-out .75s;
   animation-fill-mode: backwards; /* automatically apply 0% styles before the animation starts */
 }
