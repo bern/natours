@@ -1,0 +1,231 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+
+$color-primary: #55c57a;
+$color-primary-light: #7ed56f;
+$color-primary-dark: #28b485;
+
+$color-gray-dark: #777;
+
+/* universal reset, gets rid of all browser-default styling weirdness */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; /* force inheritance of box-sizing on every element */
+}
+
+html {
+  font-size: 62.5%; /* setting the root font-size, assuming default is 16px so we set to (10(px)/16(px))% */
+}
+
+/* everything related to font should be specified in the body selector instead of universal */
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  /* font-size: 16px; */
+  line-height: 1.7; /* 1.7 times bigger than the pre-defined line height */
+  color: $color-gray-dark;
+  padding: 3rem; /* applies a 30px padding around the body only */
+
+  box-sizing: border-box; /* borders and paddings are no longer added to total height/width */
+}
+
+
+.header {
+  height: 95vh; /* 95% of the viewport height */
+
+  /* layering two background-images on top of each other */
+  background-image: linear-gradient(
+    to right bottom, /* directional gradient */
+    rgba($color-primary-light, 0.8),
+    rgba($color-primary-dark, 0.8)
+  ), url(../img/hero.jpg); 
+  
+  background-size: cover; /* scales image based on width of viewport */
+  background-position: top; /* anchors by the top of the image */
+  position: relative;
+  
+  /* TRIANGLE CHALLENGE: clip-path: polygon(0 0, 100% 50%, 0% 100%); */
+  /* bennettfeely.com/clippy for clip-path maker */
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%); /* coordinates starting top left, moving clockwise for corners, format is {xpos ypos} */
+}
+
+.header__logo-box {
+  position: absolute; /* calculates position based on parent element with position: relative */
+  top: 4rem;
+  left: 4rem;
+}
+
+.header__logo {
+  height: 3.5rem;
+}
+
+/* instead of animating the logo directly, we animate the logo-box on hover only if it has a child logo class */
+/*
+  .logo-box:hover .logo {
+    animation: moveInRight 1s ease-out;
+  }
+*/
+
+.header__text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  text-align: center;
+
+  /* transform: translate(x, y) shifts the position of the element */
+  transform: translate(-50%, -50%); /* in this case, 50% refers to the height/width of the text-box element, rather than its parent */
+}
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+
+  backface-visibility: hidden; /* determines if the back part of an element, when transformed, is visible to the user */
+  margin-bottom: 6rem;
+}
+
+.heading-primary--main {
+  /*
+    by default, the span element is an inline property
+    we want to change this to display as a block, because
+    blocks inherently have line breaks before and after them 
+  */
+  display: block;
+  font-size: 6rem;
+  font-weight: 400;
+  letter-spacing: 3.5rem;
+
+  animation-name: moveInLeft;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+
+  /* animation-delay: 3s; wait before animation play */
+  /* animation-iteration-count: 3; times an animation occurs */
+}
+
+.heading-primary--sub {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1.74rem;
+
+  animation: moveInRight 1s ease-out; /* name duration timing-function */
+}
+
+/* 
+  two types of animations:
+  - transition property
+  - @keyframes rule
+*/
+@keyframes moveInLeft {
+  0% {
+    opacity: 0; /* for browser perf, best to animate only opacity and transform */
+    transform: translateX(-10rem);
+  }
+
+  80% {
+    transform: translateX(1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(10rem);
+  }
+
+  80% {
+    transform: translateX(-1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn:link, /* link pseudoclass for anchor tags */
+.btn:visited { /* visited pseudoclass for anchor tags after they've been visited */
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  border-radius: 10rem;
+  transition: all .2s; /* specify which properties to animate, and then duration */
+  position: relative;
+
+  /* unlike block, inline-block does not add a line break after elements */
+  display: inline-block; /* this means it'll be treated like text, so we can use text-align prop */
+  font-size: 1.6rem;
+
+  backface-visibility: hidden;
+}
+
+.btn:hover {
+  transform: translateY(-.3rem);
+  box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, .2); /* x y blur */
+}
+
+.btn:active { /* active class is on-click */
+  transform: translateY(-.1rem);
+  box-shadow: 0rem .5rem .5rem rgba(0, 0, 0, .2); /* lessen values to make the button look closer */
+}
+
+.btn--white {
+  background-color: #fff;
+  color: $color-gray-dark;
+}
+
+.btn::after { /* (pseudo-element (not pseudo-class) adds a virtual element right after the element we're styling */
+  content: ""; /* must specify, else it will not appear */
+  display: inline-block;
+  height: 100%; /* parent is the class that the pseudo-element is based off */
+  width: 100%;
+  border-radius: 10rem;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1; /* place below default depth */
+
+  transition: all .2s;
+}
+
+.btn--white::after {
+  background-color: white;
+}
+
+.btn:hover::after { /* after pseudo-element only on btn:hover */
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
+
+.btn--animated {
+  animation: moveInBottom .5s ease-out .75s;
+  animation-fill-mode: backwards; /* automatically apply 0% styles before the animation starts */
+}
